@@ -15,9 +15,14 @@ sudo dnf config-manager --add-repo "https://download.docker.com/linux/$os/docker
 sudo dnf install containerd.io -y
 
 cat <<EOF | sudo tee /etc/containerd/config.toml
-[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-  [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-    SystemdCgroup = true
+version = 2
+
+[plugins]
+  [plugins."io.containerd.grpc.v1.cri"]
+    sandbox_image = "registry.k8s.io/pause:3.10"
+    [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+        SystemdCgroup = true
 EOF
 sudo systemctl start containerd
 sudo systemctl enable containerd
