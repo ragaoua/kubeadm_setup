@@ -10,6 +10,11 @@ net.ipv4.ip_forward = 1
 EOF
 sudo sysctl --system
 
+sudo modprobe ip_tables
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+iptables
+EOF
+
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo "https://download.docker.com/linux/$os/docker-ce.repo"
 sudo dnf install containerd.io -y
