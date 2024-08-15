@@ -55,4 +55,6 @@ sudo systemctl enable --now kubelet
 
 cat <<EOF | sudo tee /etc/profile.d/k8s.sh
 alias k="kubectl"
+alias kd="kubectl describe"
+alias ka="kubectl apply -f"
 EOF
