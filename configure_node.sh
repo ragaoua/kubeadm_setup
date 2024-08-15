@@ -52,3 +52,7 @@ cat <<EOF | sudo tee /etc/sysconfig/kubelet
 KUBELET_EXTRA_ARGS="--fail-swap-on=false"
 EOF
 sudo systemctl enable --now kubelet
+
+cat <<EOF | sudo tee /etc/profile.d/k8s.sh
+alias k="kubectl"
+EOF
