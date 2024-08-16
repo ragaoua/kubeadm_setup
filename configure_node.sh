@@ -12,7 +12,7 @@ sudo sysctl --system
 
 sudo modprobe ip_tables
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-iptables
+ip_tables
 EOF
 
 sudo dnf -y install dnf-plugins-core
