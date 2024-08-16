@@ -53,10 +53,15 @@ KUBELET_EXTRA_ARGS="--fail-swap-on=false"
 EOF
 sudo systemctl enable --now kubelet
 
-cat <<EOF | sudo tee /etc/profile.d/k8s.sh
+sudo bash -c "kubectl completion bash > /etc/profile.d/00-kubectl_completion.sh"
+sudo curl -s https://raw.githubusercontent.com/cykerway/complete-alias/master/complete_alias -o /etc/profile.d/00-completion_alias.sh
+cat <<EOF | sudo tee /etc/profile.d/01-kubectl_aliases.sh
 alias k="kubectl"
 alias kd="kubectl describe"
 alias ka="kubectl apply -f"
-
-$(kubectl completion bash)
+complete -F _complete_alias k
+complete -F _complete_alias kd
+complete -F _complete_alias ka
 EOF
+
+
